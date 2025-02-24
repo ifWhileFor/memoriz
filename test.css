@@ -1,5 +1,14 @@
-header > h1 {
+header > div {
+    border: solid 5px rgb(46, 72, 51);
+    
+    margin: 0.5% 35% 0 35%;
+    background-image: url(./image/pngegg.png);
+    background-size: contain ;
+    background-repeat: no-repeat;
+    background-position: center;
+ h1 {
     text-align: center;
     color: rgb(238, 187, 159);
-
+    
+ }
 }
