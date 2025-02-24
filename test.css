@@ -1,14 +1,14 @@
-header > div {
-    border: solid 5px rgb(46, 72, 51);
-    
-    margin: 0.5% 35% 0 35%;
-    background-image: url(./image/pngegg.png);
-    background-size: contain ;
-    background-repeat: no-repeat;
-    background-position: center;
+
  h1 {
-    text-align: center;
-    color: rgb(238, 187, 159);
-    
+   padding: 5% 15% 3% 15%;
+   margin: 0.5% 0% 0 5%;
+   background-image: url(./image/pngegg.png);
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   float: initial;
+   text-align: center;
+   vertical-align: bottom;
+   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(39, 99, 36);
  }
-}
