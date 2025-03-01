@@ -1,4 +1,7 @@
-
+body {
+  background-color: rgb(16, 58, 58);
+}
+ 
  h1 {
    padding: 5% 15% 3% 15%;
    margin: 0.5% 0% 0 5%;
@@ -13,3 +16,27 @@
     color: rgb(39, 99, 36);
     
  }
+
+ section {
+  margin: 5% auto;
+  width: 300px;
+  
+ }
+ fieldset {
+  border-radius: 10px;
+  border-width: 4px;
+  background-color: rgb(39, 99, 36);
+ }
+ legend {
+  background-color: rgb(16, 58, 58);
+  color: rgb(39, 99, 36);
+ }
+button {
+  margin-bottom: 3%;
+  padding: 10px;
+  margin-left: 35%;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px;
+  
+
+}
