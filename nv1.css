@@ -1,45 +1,93 @@
 .grid-table {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 250px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 3%;
+    margin: auto;
+    width: 50%;
+    height: 700px;
     
-
-  }
-.carte {
-    width: 10%;
-    position: relative;
+  } 
   
-    
-    transform-style: preserve-3d;
-    transform: rotateY(0deg);
-    transition: transform 0.6s ease-in-out;
-    
-}
 
-.carte-face, .carte-dos {
-    position: absolute;
-    padding: 75px 100px;
-    backface-visibility: hidden;
+
+  
+
+.carte {
+    
+    border: solid 7px green;
+    border-radius: 5px;
+    background-color: #285a6d;
+    color: white;
+    height: 100%;
+    width: 100%;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    background: #fff;
-  }
+
+    transform-style: preserve-3d; /* Nécessaire pour l'effet 3D */
+    transition: transform 0.6s; /* Animation fluide */
+}
+
+.carte.flipped {
+    animation: flip 1s  forwards;
+    content-visibility: hidden;
+    
+}
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+
+    }
+    50% {
+        transform: rotateY(90deg); /* Rotation pour le flip */
+        background-color: #285a6d; /* Change la couleur après le flip */
+        }
+    
+    100% {
+        transform: rotateY(180deg); /* Rotation pour le flip */
+        background: url("./images/sushi1.avif");/* Change la couleur après le flip */
+        background-position: center;
+        background-size: cover;
+
   
-  .carte-dos {
-    background-color: #4CAF50;
-    color: white;
+    }
+  
+}
+
+@keyframes reverseflip {
+  0% {
+      transform: rotateY(180deg);
+      background: url("./images/sushi1.avif"); /* Change la couleur après le flip */
+      background-position: center;
+      background-size: cover;
+
   }
-  .carte-face {
-    background-color: #FF5722;
-    color: white;
-    transform: rotateY(180deg);
+  50% {
+      transform: rotateY(90deg); /* Rotation pour le flip */
+      background: url("./images/sushi1.avif"); /* Change la couleur après le flip */
+      background-position: center;
+      background-size: cover;
+      }
+  
+  100% {
+      transform: rotateY(0deg); /* Rotation pour le flip */
+      background-color: #285a6d;
+      content-visibility: visible;
+       /* Change la couleur après le flip */
+
+
   }
-  .flipped {
-    transform: rotateY(180deg);
-    margin-left: 250px;
-  }
+
+}
+
+.noflipped {
+  animation: reverseflip 5s forwards;
+  
+}
+    
+
+  
+  
+
