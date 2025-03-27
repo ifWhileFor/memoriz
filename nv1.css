@@ -1,0 +1,45 @@
+.grid-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 250px;
+    
+
+  }
+.carte {
+    width: 10%;
+    position: relative;
+  
+    
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.6s ease-in-out;
+    
+}
+
+.carte-face, .carte-dos {
+    position: absolute;
+    padding: 75px 100px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    background: #fff;
+  }
+  
+  .carte-dos {
+    background-color: #4CAF50;
+    color: white;
+  }
+  .carte-face {
+    background-color: #FF5722;
+    color: white;
+    transform: rotateY(180deg);
+  }
+  .flipped {
+    transform: rotateY(180deg);
+    margin-left: 250px;
+  }
