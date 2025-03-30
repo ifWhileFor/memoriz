@@ -9,13 +9,23 @@
 <body>
   <div class="container">
     <h1>Bienvenue dans Mémo'Riz</h1>
-    <p>Choisissez un niveau pour commencer :</p>
+    
     <div class="buttons">
-      <a href="niveau-facile.html" class="btn">Niveau Facile</a>
-      <a href="niveau-moyen.html" class="btn">Niveau Moyen</a>
-      <a href="niveau-difficile.html" class="btn">Niveau Difficile</a>
-      <a href="Ranking.html" class="btn">Classement</a>
-    </div>
+      <p>Choisissez un niveau pour commencer :</p>
+      <a href="#" onclick="setLevel(1)" class="btn" id="facile" >Niveau Facile</a>
+      <a href="#" onclick="setLevel(2)" class="btn">Niveau Moyen</a>
+      <a href="#" onclick="setLevel(3)" class="btn">Niveau Difficile</a>
+      <a href="classement.html" class="btn">Classement</a>
+</div></div>
+    <div id="main">
+      <button onclick="startGame()" class="start-button">Démarrer</button>
+  
+  <div class="grid-table"> 
+
+
+
+  </div>
   </div>
 </body>
+<script src="script.js"></script>
 </html>
