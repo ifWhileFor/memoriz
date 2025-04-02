@@ -34,11 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['status' => 'success', 'message' => 'Nouvel utilisateur créé.', 'id_user' => $userId]);
             exit;
         } elseif ($user['password_user'] !== $password) {
-            echo json_encode(['status' => 'error', 'message' => 'Mot de passe incorrect.']);
             exit;
         } else {
             // L'utilisateur existe et le mot de passe est correct
-            echo json_encode(['status' => 'success', 'message' => 'Connexion réussie.', 'id_user' => $user['id_user']]);
             exit;
         }
     } catch (PDOException $e) {
@@ -65,7 +63,6 @@ if (isset($input['coup'], $input['time'], $input['level'], $input['username'])) 
             'pseudo_user' => $pseudo
         ]);
 
-        echo json_encode(['status' => 'success', 'message' => 'Score enregistré avec succès.']);
     } catch (PDOException $e) {
         echo json_encode(['status' => 'error', 'message' => 'Erreur lors de l\'enregistrement du score : ' . $e->getMessage()]);
     }
