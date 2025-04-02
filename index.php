@@ -9,6 +9,8 @@
 <body>
   <div class="container">
     <h1>Bienvenue dans Mémo'Riz</h1>
+    <button onclick="startGame()" class="start-button">Démarrer</button>
+
     
     <div class="buttons">
       <p>Choisissez un niveau pour commencer :</p>
@@ -18,7 +20,7 @@
       <a href="ranking.php" class="btn">Classement</a>
 </div></div>
     <div id="main">
-      <button onclick="startGame()" class="start-button">Démarrer</button>
+      
   
   <div class="grid-table"> 
 
@@ -28,5 +30,57 @@
   </div>
 </body>
 <script src="script.js"></script>
+<?php
+
+// Connexion à la base de données
+try {
+    $mySQLClient = new PDO('mysql:host=localhost;dbname=memorizdb;charset=utf8', 'root', '', [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+} catch (PDOException $e) {
+    echo json_encode(['status' => 'error', 'message' => 'Erreur de connexion à la base de données : ' . $e->getMessage()]);
+    exit;
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['username'], $_POST['password'])) {
+        $pseudo = $_POST['username'];
+        $password = $_POST['password'];
+    
+    // Vérification si l'utilisateur existe déjà
+    try {
+        $query = "SELECT id_user, password_user FROM users WHERE pseudo_user = :pseudo_user";
+        $stmt = $mySQLClient->prepare($query);
+        $stmt->execute(['pseudo_user' => $pseudo]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            // Créer un nouvel utilisateur
+            $createUserQuery = "INSERT INTO users (pseudo_user, password_user) VALUES (:pseudo_user, :password_user)";
+            $createUserStmt = $mySQLClient->prepare($createUserQuery);
+            $createUserStmt->execute(['pseudo_user' => $pseudo, 'password_user' => $password]);
+            
+            $maVariable = htmlspecialchars($pseudo, ENT_QUOTES, "UTF-8");
+            echo '<input type="hidden" id="maVariable" value="' . $maVariable . '">';
+            
+            
+        } elseif ($user['password_user'] !== $password) {
+          echo '<script>alert("Mot de passe incorrect !");</script>';
+            exit;
+        } else {
+            
+            $maVariable = htmlspecialchars($pseudo, ENT_QUOTES, "UTF-8");
+            echo '<input type="hidden" id="maVariable" value="' . $maVariable . '">';
+            
+            
+            
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => 'Erreur lors de la vérification de l\'utilisateur : ' . $e->getMessage()]);
+        exit;
+    }
+    }
+}
+?>
+
 
 </html>

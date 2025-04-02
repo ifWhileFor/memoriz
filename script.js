@@ -1,3 +1,7 @@
+let username = ""; // Variable to store the username
+if (localStorage.getItem('username')) {
+    username = localStorage.getItem('username'); // Retrieve the username from local storage
+}
 
 let connected = false; // Variable to track if the user is connected
 
@@ -21,7 +25,7 @@ function generateSignInForm() {
 
     const form = document.createElement('form');
     form.setAttribute('method', 'POST');
-    form.setAttribute('action', 'ranking.php');
+    form.setAttribute('action', 'index.php');
 
     // Username Label and Input
     const usernameLabel = document.createElement('label');
@@ -58,8 +62,11 @@ function generateSignInForm() {
     submitButton.addEventListener('click', () => {
         // Validate input before hiding form
         if (usernameInput.value && passwordInput.value) {
-
-        
+            username = usernameInput.value; // Get the username from the input field
+            localStorage.setItem('username', username);
+             // Store the username
+            console.log("Username:", username); // Log the username
+            connected = true; // Set connected to true
             formContainer.style.display = 'none';
         } else {
             alert('Veuillez remplir tous les champs.');
@@ -84,60 +91,53 @@ function generateSignInForm() {
     formContainer.style.borderRadius = '10px';
 }
 let chronoText = ''; // Variable to store the time for saving
-function nameLevel(levelc) {
-    switch (levelc) {
+function nameLevel(levelC) {
+    switch (levelC) {
         case 1:
-            return 'facile';
+            return '1-facile';
         case 2:
-            return 'moyen';
+            return '2-moyen';
         case 3:
-            return 'difficile';
+            return '3-difficile';
         default:
             return 'inconnu';
     }
 } // Closing brace added here
 // Sauvegarde des données de jeu via l'API
-function saveGameData(level) {
-    fetch('./ranking.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            level: level,
-            coup: scoreValue, // Nombre de coups réalisés
-            time: chronoText // Temps écoulé
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Server response:', data);
-        if (data.message) {
-            alert(data.message); // Affiche le message du serveur à l'utilisateur
-        }
-    })
-    .catch(error => {
-        console.error('Erreur lors de la sauvegarde des données de jeu :', error); // Affiche une erreur dans la console
-    });
+function saveGame() {
+    console.log("Saving game data...");
+    if (!scoreValue || !chronoText || !levelC) {
+        alert("Les données de jeu sont invalides. Veuillez réessayer.");
+        return;
+    }
+    
+    if (username) {
+        console.log("Username:", username);
+        // Construction de l'URL avec les paramètres nécessaires
+        let newURL = `ranking.php?username=${encodeURIComponent(username)}&coup=${encodeURIComponent(scoreValue)}&time=${encodeURIComponent(chronoText)}&level=${encodeURIComponent(nameLevel(levelC))}`;
+        console.log("URL à ouvrir :", newURL);
+
+        // Redirection vers la page pour sauvegarder les scores
+        window.location.href = newURL;
+    } else {
+        alert("Veuillez entrer un nom d'utilisateur valide.");
+    }
 }
 
-let levelc = 1;
+let levelC = 1;
 const cardBackground = ['url("./images/carte1.jpg")','url("./images/carte2.jpg")','url("./images/carte3.jpg")',
                         'url("./images/carte4.jpg")','url("./images/carte5.jpg")','url("./images/carte6.jpg")',
                         'url("./images/carte7.jpg")','url("./images/carte8.jpg")','url("./images/carte9.jpg")',
-                        'url("./images/carte10.jpg")','url("./images/carte11.jpg)','url("./images/carte12.jpg")',
+                        'url("./images/carte10.jpg")','url("./images/carte11.jpg")','url("./images/carte12.jpg")',
                         'url("./images/carte13.jpg")','url("./images/carte14.jpg")','url("./images/carte15.jpg")',
                         'url("./images/carte16.jpg")','url("./images/carte17.jpg")','url("./images/carte18.jpg")']
                      // Path to the card background images
 function setLevel(newLevel) {
-    levelc = newLevel;
-    console.log(`Level set to ${levelc}`);
+    levelC = newLevel;
+    console.log(`Level set to ${levelC}`);
     document.querySelector('.buttons').display = 'none'; // Hide the button after level selection
+    document.querySelector('.start-button').display ='block'
+    
 }
 
 
@@ -166,8 +166,8 @@ function generateCards(numberOfCards) {
 }
 let scoreValue = 0;  
 function startGame() {
-    console.log(levelc);
-    switch (levelc) {    
+    console.log(levelC);
+    switch (levelC) {    
         case 1:
             generateCards(4); // 4 pairs
             break;
@@ -280,9 +280,11 @@ function checkMatch(card) {
             const allMatched = document.querySelectorAll('.matched');
             if (allMatched.length === document.querySelectorAll('.carte').length) {
                 setTimeout(() => {
-                    saveGameData(levelc); // Save game data
-                    document.querySelector('buttons').style.display = 'block'; // Show the button again
-                    alert('Congratulations! You matched all the cards!');
+                    if (document.querySelector('#maVariable').value){
+                        saveGame(); // Save game data if connected
+                    }
+                    document.querySelector('.buttons').style.display = 'block'; // Show the button again
+                    
                     game = false;
                     
                     document.querySelector('.start-button').textContent = 'Start Game';

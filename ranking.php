@@ -1,76 +1,61 @@
 <?php
-header('Content-Type: application/json');
+echo '<link rel="stylesheet" type="text/css" href="ranking.css">';
+
+// Ajouter un cookie pour détecter la fermeture de l'onglet
+
 
 // Connexion à la base de données
 try {
     $mySQLClient = new PDO('mysql:host=localhost;dbname=memorizdb;charset=utf8', 'root', '', [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        
     ]);
 } catch (PDOException $e) {
     echo json_encode(['status' => 'error', 'message' => 'Erreur de connexion à la base de données : ' . $e->getMessage()]);
     exit;
 }
 
-// Vérification du type de requête
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['username'], $_POST['password'])) {
-        $pseudo = $_POST['username'];
-        $password = $_POST['password'];
-    
-    // Vérification si l'utilisateur existe déjà
-    try {
-        $query = "SELECT id_user, password_user FROM users WHERE pseudo_user = :pseudo_user";
-        $stmt = $mySQLClient->prepare($query);
-        $stmt->execute(['pseudo_user' => $pseudo]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+// Vérification si l'utilisateur a déjà envoyer les données 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['username'] ) && $valueEntered == false) {
+    echo json_encode(['status' => 'success', 'message' => 'connecter avec succès.']);
 
-        if (!$user) {
-            // Créer un nouvel utilisateur
-            $createUserQuery = "INSERT INTO users (pseudo_user, password_user) VALUES (:pseudo_user, :password_user)";
-            $createUserStmt = $mySQLClient->prepare($createUserQuery);
-            $createUserStmt->execute(['pseudo_user' => $pseudo, 'password_user' => $password]);
-            $userId = $mySQLClient->lastInsertId();
 
-            echo json_encode(['status' => 'success', 'message' => 'Nouvel utilisateur créé.', 'id_user' => $userId]);
-            exit;
-        } elseif ($user['password_user'] !== $password) {
-            exit;
-        } else {
-            // L'utilisateur existe et le mot de passe est correct
-            exit;
-        }
-    } catch (PDOException $e) {
-        echo json_encode(['status' => 'error', 'message' => 'Erreur lors de la vérification de l\'utilisateur : ' . $e->getMessage()]);
-        exit;
-    }
-}
-
-// Traitement des scores
-if (isset($input['coup'], $input['time'], $input['level'], $input['username'])) {
-    $coups = $input['coup'];
-    $time = $input['time'];
-    $level = $input['level'];
-    $pseudo = $input['username'];
+// Vérification des paramètres GET
+if (isset($_GET['username'], $_GET['coup'], $_GET['time'], $_GET['level'])) {
+    $username = $_GET['username'];
+    $coup = $_GET['coup'];
+    $time = $_GET['time'];
+    $level = $_GET['level'];
 
     try {
+        $_SESSION['valueEntered'] = true;
+
+// Ajouter un cookie pour détecter la fermeture de l'onglet
+
+        // Insertion des scores dans la table "score"
         $querySaveScore = "INSERT INTO score (coup_score, time_score, level_score, id_user)
-            VALUES (:coup_score, :time_score, :level_score, (SELECT id_user FROM users WHERE pseudo_user = :pseudo_user))";
+            VALUES (:coup_score, :time_score, :level_score,
+                (SELECT id_user FROM users WHERE pseudo_user = :username))";
         $saveScoreStmt = $mySQLClient->prepare($querySaveScore);
         $saveScoreStmt->execute([
-            'coup_score' => $coups,
+            'coup_score' => $coup,
             'time_score' => $time,
             'level_score' => $level,
-            'pseudo_user' => $pseudo
+            'username' => $username
         ]);
 
+        echo json_encode(['status' => 'success', 'message' => 'Score enregistré avec succès.']);
     } catch (PDOException $e) {
         echo json_encode(['status' => 'error', 'message' => 'Erreur lors de l\'enregistrement du score : ' . $e->getMessage()]);
     }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Données de score manquantes ou invalides.']);
-    exit;
-}
+    echo json_encode(['status' => 'error', 'message' => 'Paramètres manquants.']);
+} 
+// Rediriger l'utilisateur vers la page index0
+header("Location: index.php");}
+
 ?>
+
 <?php
 // Connexion à la base de données
 $host = 'localhost';
@@ -91,7 +76,7 @@ $sql = "
     FROM users
     JOIN score ON users.id_user = score.id_user
     WHERE score.coup_score IS NOT NULL AND score.time_score IS NOT NULL AND score.level_score IS NOT NULL
-    ORDER BY score.level_score DESC, score.coup_score, score.time_score DESC
+    ORDER BY score.level_score DESC , score.coup_score  
     
 ";
 
@@ -110,7 +95,6 @@ if ($result->num_rows > 0) {
         echo "<td>" . htmlspecialchars($row['username']) . "</td>";
         echo "<td>" . htmlspecialchars($row['coup_score']) . "</td>";
         echo "<td>" . htmlspecialchars($row['time_score']) . "</td>";
-        echo "<td>". htmlspecialchars($row['date_score']) . "</td>";
         echo "<td>" . htmlspecialchars($row['level_score']) . "</td>";
         echo "<td>" . htmlspecialchars($row['date_score']) . "</td>";
         echo "</tr>";
@@ -122,5 +106,5 @@ if ($result->num_rows > 0) {
 }
 
 // Fermer la connexion
-$conn->close();}
+$conn->close();
 ?>

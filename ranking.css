@@ -1,0 +1,52 @@
+/* Styling for the page title */
+h1 {
+    text-align: center;
+    font-family: 'Press Start 2P', cursive; /* Police rétro style jeu vidéo */
+    font-size: 2.5rem;
+    color: #00ffcc; /* Couleur néon */
+    margin-top: 20px;
+    text-shadow: 2px 2px 4px #000; /* Effet de lumière */
+}
+
+/* Styling for the score table */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #1a1a1a; /* Fond sombre */
+    border: 2px solid #00ffcc; /* Bordure néon */
+    box-shadow: 0 0 15px #00ffcc; /* Effet néon */
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+table th, table td {
+    border: 1px solid #333;
+    padding: 15px;
+    text-align: center;
+}
+
+table th {
+    background-color: #00ffcc; /* Couleur néon */
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #2a2a2a; /* Alternance de lignes */
+}
+
+table tr:hover {
+    background-color: #00ffcc; /* Surlignage néon */
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add some spacing around the table */
+table {
+    margin-bottom: 40px;
+}

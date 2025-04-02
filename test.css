@@ -15,10 +15,10 @@ body {
   
   .container {
     text-align: center;
-    background: #ffffff;
+    background-color: #00ffcc; /* Couleur néon */
     padding: 20px 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px #00ffcc; /* Effet néon */
   }
   
   h1 {
@@ -32,7 +32,7 @@ body {
   }
   
   .buttons {
-    display: flex;
+    display: block;
     justify-content: center;
     gap: 10px;
   }
@@ -68,7 +68,7 @@ body {
     
     border: solid 7px green;
     border-radius: 20px;
-    background-color: #285a6d;
+    background-image: url("./images/MémoRiz2.png");
     color: white;
     height: 100%;
     width: 100%;
@@ -99,7 +99,7 @@ body {
     }
     50% {
         transform: rotateY(90deg); /* Rotation pour le flip */
-        background-color: #285a6d; /* Change la couleur après le flip */
+        background-image: url("./images/MémoRiz2.png");
         }
     
     100% {
@@ -123,12 +123,12 @@ body {
       }
     52% {
       transform: rotateY(90deg); /* Rotation pour le flip */
-      background-color: #285a6d; /* Change la couleur après le flip */
+      background-image: url("./images/MémoRiz2.png");
       content-visibility: hidden;}
   
   100% {
       transform: rotateY(0deg); /* Rotation pour le flip */
-      background-color: #285a6d;
+      background-image: url("./images/MémoRiz2.png");
       content-visibility: visible;
        /* Change la couleur après le flip */
 
@@ -162,3 +162,6 @@ body {
 .valide {
   transform: rotateY(180deg);
 }
+
+
+  
