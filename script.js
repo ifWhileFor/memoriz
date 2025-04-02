@@ -1,7 +1,5 @@
 let username = ""; // Variable to store the username
-if (localStorage.getItem('username')) {
-    username = localStorage.getItem('username'); // Retrieve the username from local storage
-}
+
 
 let connected = false; // Variable to track if the user is connected
 
@@ -16,6 +14,7 @@ signButton.style.borderRadius = '5px'; // Rounded corners
 signButton.addEventListener('click', generateSignInForm);
 signButton.setAttribute('aria-label', 'Open Sign In Form'); 
 document.querySelector('.buttons').insertBefore(signButton,document.querySelector('a')); // Insert the button before the anchor tag
+
 
 
 
@@ -40,13 +39,11 @@ function generateSignInForm() {
     usernameInput.setAttribute('required', true);
     usernameInput.setAttribute('aria-label', 'Enter your username');
     form.appendChild(usernameInput);
-
     // Password Label and Input
     const passwordLabel = document.createElement('label');
     passwordLabel.setAttribute('for', 'password');
     passwordLabel.textContent = 'Password:';
     form.appendChild(passwordLabel);
-
     const passwordInput = document.createElement('input');
     passwordInput.setAttribute('type', 'password');
     passwordInput.setAttribute('id', 'password');
@@ -54,7 +51,6 @@ function generateSignInForm() {
     passwordInput.setAttribute('required', true);
     passwordInput.setAttribute('aria-label', 'Enter your password');
     form.appendChild(passwordInput);
-
     // Submit Button
     const submitButton = document.createElement('button');
     submitButton.setAttribute('type', 'submit');
@@ -62,8 +58,7 @@ function generateSignInForm() {
     submitButton.addEventListener('click', () => {
         // Validate input before hiding form
         if (usernameInput.value && passwordInput.value) {
-            username = usernameInput.value; // Get the username from the input field
-            localStorage.setItem('username', username);
+            
              // Store the username
             console.log("Username:", username); // Log the username
             connected = true; // Set connected to true
@@ -75,7 +70,6 @@ function generateSignInForm() {
     submitButton.style.backgroundColor = '#4CAF50'; // Green background
     submitButton.setAttribute('aria-label', 'Submit Sign In Form');
     form.appendChild(submitButton);
-
     // Append everything to the container
     formContainer.appendChild(form);
     document.body.appendChild(formContainer);
@@ -135,8 +129,9 @@ const cardBackground = ['url("./images/carte1.jpg")','url("./images/carte2.jpg")
 function setLevel(newLevel) {
     levelC = newLevel;
     console.log(`Level set to ${levelC}`);
-    document.querySelector('.buttons').display = 'none'; // Hide the button after level selection
-    document.querySelector('.start-button').display ='block'
+    document.querySelector('.buttons').style.display = 'none'; // Hide the button after level selection
+    signButton.style.display = "none";
+    document.querySelector('.start-button').style.display ='inline';
     
 }
 
@@ -211,9 +206,8 @@ if (game == true){
         chrono.textContent = `time: ${minutes}m ${seconds}s`;
         chronoText = `${minutes}m ${seconds}s`; // Store the time in a variable for saving
     }, 1000); // Update every second
-    if(game == false){
-        clearInterval(interval); // Clear the previous interval
-    }
+    
+        
     const score = document.createElement('div');
     score.classList.add('score');
     score.style.position = 'absolute';
@@ -236,7 +230,7 @@ if (game == true){
                 flipCard(card);
                 
                 setTimeout(() => {
-                checkMatch(card);
+                checkMatch(card,interval);
                }, 1000); 
                 
             }
@@ -264,7 +258,7 @@ function reflipCard(card) {
 
 
 
-function checkMatch(card) {
+function checkMatch(card,interval) {
     const flippedCards = document.querySelectorAll('.flipped');
     if (flippedCards.length === 2) {
         const [firstCard, secondCard] = flippedCards;
@@ -280,7 +274,9 @@ function checkMatch(card) {
             const allMatched = document.querySelectorAll('.matched');
             if (allMatched.length === document.querySelectorAll('.carte').length) {
                 setTimeout(() => {
-                    if (document.querySelector('#maVariable').value){
+                    clearInterval(interval);
+                    username = document.querySelector('#maVariable').value;
+                    if (username){
                         saveGame(); // Save game data if connected
                     }
                     document.querySelector('.buttons').style.display = 'block'; // Show the button again
@@ -297,4 +293,8 @@ function checkMatch(card) {
             }, 1000);
         }
     }
+}
+if(username){
+    
+    signButton.style.display = "none";
 }

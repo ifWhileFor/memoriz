@@ -13,7 +13,7 @@
 
     
     <div class="buttons">
-      <p>Choisissez un niveau pour commencer :</p>
+      <p>Connecter vous et choisissez un niveau pour commencer :</p>
       <a href="#" onclick="setLevel(1)" class="btn" id="facile" >Niveau Facile</a>
       <a href="#" onclick="setLevel(2)" class="btn">Niveau Moyen</a>
       <a href="#" onclick="setLevel(3)" class="btn">Niveau Difficile</a>

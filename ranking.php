@@ -16,7 +16,7 @@ try {
 }
 
 // Vérification si l'utilisateur a déjà envoyer les données 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['username'] ) && $valueEntered == false) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['username'] )) {
     echo json_encode(['status' => 'success', 'message' => 'connecter avec succès.']);
 
 
@@ -28,7 +28,7 @@ if (isset($_GET['username'], $_GET['coup'], $_GET['time'], $_GET['level'])) {
     $level = $_GET['level'];
 
     try {
-        $_SESSION['valueEntered'] = true;
+        
 
 // Ajouter un cookie pour détecter la fermeture de l'onglet
 
@@ -51,7 +51,7 @@ if (isset($_GET['username'], $_GET['coup'], $_GET['time'], $_GET['level'])) {
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Paramètres manquants.']);
 } 
-// Rediriger l'utilisateur vers la page index0
+// Rediriger l'utilisateur vers la page index
 header("Location: index.php");}
 
 ?>
