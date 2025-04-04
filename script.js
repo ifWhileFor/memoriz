@@ -1,5 +1,14 @@
 let username = ""; // Variable to store the username
-
+document.addEventListener('DOMContentLoaded', () => {
+    const inputElement = document.querySelector('#maVariable');
+    if (inputElement && inputElement.value) {
+        username = inputElement.value;
+        console.log(`Username set to: ${username}`);
+        document.querySelector('.buttons').style.display = "block";
+        document.querySelector('.signbutton').style.display = "none";
+        document.querySelector('.container').style.left = '25%';
+    }
+});
 
 let connected = false; // Variable to track if the user is connected
 
@@ -13,7 +22,8 @@ signButton.style.padding = '10px 20px'; // Padding for the button
 signButton.style.borderRadius = '5px'; // Rounded corners
 signButton.addEventListener('click', generateSignInForm);
 signButton.setAttribute('aria-label', 'Open Sign In Form'); 
-document.querySelector('.buttons').insertBefore(signButton,document.querySelector('a')); // Insert the button before the anchor tag
+
+document.querySelector('.container').insertBefore(signButton,document.querySelector('.buttons')); // Insert the button before the anchor tag
 
 
 
@@ -130,8 +140,9 @@ function setLevel(newLevel) {
     levelC = newLevel;
     console.log(`Level set to ${levelC}`);
     document.querySelector('.buttons').style.display = 'none'; // Hide the button after level selection
-    signButton.style.display = "none";
+    
     document.querySelector('.start-button').style.display ='inline';
+    document.querySelector('.container').style.left = "32%";
     
 }
 
@@ -161,6 +172,7 @@ function generateCards(numberOfCards) {
 }
 let scoreValue = 0;  
 function startGame() {
+    
     console.log(levelC);
     switch (levelC) {    
         case 1:
@@ -179,6 +191,7 @@ function startGame() {
  
 if (game == true){
     
+    
     docuument.querySelector('.grid-table').innerHTML = '';
     
     document.querySelector('.chrono').remove(); // Remove existing chrono
@@ -192,6 +205,7 @@ if (game == true){
     chrono.style.top = '10px';
     chrono.style.left = '10px';
     chrono.style.fontSize = '20px';
+    chrono.style.color = 'white';
     document.querySelector('.grid-table').appendChild(chrono);
     let seconds = 0;
     let minutes = 0;
@@ -207,7 +221,7 @@ if (game == true){
         chronoText = `${minutes}m ${seconds}s`; // Store the time in a variable for saving
     }, 1000); // Update every second
     
-        
+    document.querySelector('.container').style.display = 'none';
     const score = document.createElement('div');
     score.classList.add('score');
     score.style.position = 'absolute';
@@ -215,6 +229,7 @@ if (game == true){
     score.style.right = '10px';
     score.style.fontSize = '20px';
     document.querySelector('.grid-table').appendChild(score);
+    score.style.color = 'white';
     score.textContent = `Score: ${scoreValue}`; // Update score display
     game = true;
     document.querySelector('.start-button').textContent = 'Restart Game'; // Change button text to "Restart Game"

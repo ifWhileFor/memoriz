@@ -13,6 +13,7 @@
 
     
     <div class="buttons">
+        
       <p>Connecter vous et choisissez un niveau pour commencer :</p>
       <a href="#" onclick="setLevel(1)" class="btn" id="facile" >Niveau Facile</a>
       <a href="#" onclick="setLevel(2)" class="btn">Niveau Moyen</a>
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $maVariable = htmlspecialchars($pseudo, ENT_QUOTES, "UTF-8");
             echo '<input type="hidden" id="maVariable" value="' . $maVariable . '">';
+            
             
             
         } elseif ($user['password_user'] !== $password) {
