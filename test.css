@@ -1,120 +1,26 @@
 /* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    background: url('./images/bg.jpg');
-    margin: 0;
-    padding: 0;
-    display: flexbox;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: #333;
-  }
-  
-  .container {
-    position: absolute;
-    top: 40%;
-    left: 35%;
-    text-align: center;
-    background-color: #00ffcc; /* Couleur néon */
-    padding: 20px 40px;
-    border-bottom-right-radius: 10px ;
-    border-bottom-left-radius: 10px ;
-    box-shadow: 0 0 15px #00ffcc; /* Effet néon */
-  }
-  
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-  }
-  
-  .buttons {
-    display: none;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .btn {
-    text-decoration: none;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #45a049;
-  }
 
-
-
-  .grid-table {
-    display: grid;
-    margin: 1% auto;
-    width: 50%;
-    height: 700px;
-    
-  } 
-  
-
-
-  
-
-.carte {
-    
-    border: solid 7px green;
-    border-radius: 20px;
-    background-image: url("./images/MémoRiz2.png");
-    color: white;
-    height: 100%;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-position: center;
-    background-size: cover;
-    transform-style: preserve-3d; /* Nécessaire pour l'effet 3D */
-    transition: transform 0.6s; /* Animation fluide */
-}
-
-.carte.flipped {
-    animation: flip 1s  forwards;
-    content-visibility: hidden;
-    
-}
-.carte.noflipped {
-    animation: reflip 1s forwards;
-    content-visibility: visible;
-    
-  }
+/*création d'animation*/
+/* Effet de flip pour la carte */
 @keyframes flip {
-    0% {
-        transform: rotateY(0deg);
+  0% {
+      transform: rotateY(0deg);
 
-    }
-    50% {
-        transform: rotateY(90deg); /* Rotation pour le flip */
-        background-image: url("./images/MémoRiz2.png");
-        }
-    
-    100% {
-        transform: rotateY(180deg); /* Rotation pour le flip */
-       
+  }
+  50% {
+      transform: rotateY(90deg); /* Rotation pour le flip */
+      background-image: url("./images/MémoRiz2.png");
+      }
+  
+  100% {
+      transform: rotateY(180deg); /* Rotation pour le flip */
+     
 
-  
-    }
-  
+
+  }
+
 }
-
+/* Effet de reflip pour la carte */
 @keyframes reflip {
   0% {
       transform: rotateY(180deg);
@@ -141,11 +47,42 @@ body {
 
 }
 
-.matched {
-    border-color: goldenrod;
+/*modification de la page général*/
 
-}
-    
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('./images/bg.jpg');
+    margin: 0;
+    padding: 0;
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #333;
+  }
+  
+  .container {
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    text-align: center;
+    background-color: #00ffcc; /* Couleur néon */
+    padding: 20px 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #00ffcc; /* Effet néon */
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
 
   button {
     display: inline-flex;
@@ -162,12 +99,106 @@ body {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease; /* Animation de transition */}
+
+
+  /*modification du menu contenu dans .container*/
+  .start-button {
+    display: none;
+  }
   
+
+  .buttons {
+    display: none;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .btn {
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+
+
+
+/*modification de la page de jeu*/
+  .grid-table {
+    display: grid;
+    margin: 1% auto;
+    width: 50%;
+    height: 700px;
+    
+  } 
+
+  
+.gif {
+  display: none;
+    width: 10;
+    height: 40%;
+    
+    margin-top: 20px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    img {
+        width: 50%;
+        height: auto;
+    }
+   
+}
+
+  
+.carte {
+    
+    border: solid 7px green;
+    border-radius: 20px;
+    background-image: url("./images/MémoRiz2.png");
+    color: white;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    transform-style: preserve-3d; /* Nécessaire pour l'effet 3D */
+    transition: transform 0.6s; /* Animation fluide */
+}
+
+/* modification de la carte selon l'état et verification*/
+.carte.flipped {
+    animation: flip 1s  forwards;
+    content-visibility: hidden;
+    
+}
+.carte.noflipped {
+    animation: reflip 1s forwards;
+    content-visibility: visible;
+    
+  }
+
+
+.carte.matched {
+    border-color: goldenrod;
+
+}
+
 .valide {
   transform: rotateY(180deg);
 }
+    
 
-.start-button {
-  display: none;
-}
   
+

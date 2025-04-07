@@ -21,10 +21,11 @@
       <a href="ranking.php" class="btn">Classement</a>
 </div></div>
     <div id="main">
-      
+    <div class="gif" id="win"><img src="./images/sticky-rice-rice-ball.gif" alt=""></div>
+    <div class="gif" id="lose"><img src="./images/loose.gif" alt=""></div>
   
   <div class="grid-table"> 
-
+  
 
 
   </div>
